@@ -9,28 +9,6 @@
     z-index: 100;
 }
 
-.Navbar .Logo {
-    padding: 10px;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 28px;
-    letter-spacing: -2%;
-    color: #FBFBFB;
-    flex: 3;
-}
-
-.Navbar .NavList {
-    flex: 2;
-    color: #FBFBFB;
-}
-
-.Navbar .AuthButtons {
-    flex: 1;
-}
 
 
-.AuthButtons .LoginButton {
-    background: transparent;
-    border: 2px solid rgba(251, 251, 251, 0.4);
-    padding-inline: 39px;
-}
+
