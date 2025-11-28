@@ -6,7 +6,7 @@ import { FaPaintBrush } from "react-icons/fa";
 
 const ThemeSelector = () => {
   const [theme, setTheme] = useState("red");
-  const [mounted, setMounted] = useState(true);
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
