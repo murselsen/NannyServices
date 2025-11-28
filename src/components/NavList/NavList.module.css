@@ -1,0 +1,25 @@
+.NavList {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    padding-inline-start: 20px;
+}
+
+.NavItem {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -1%;
+    cursor: pointer;
+    color: white;
+}
+
+.NavItem:hover {
+    color: var(--primary-color);
+}
+
+.NavLink {
+    text-decoration: none;
+    color: inherit;
+}
