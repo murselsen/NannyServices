@@ -1,0 +1,11 @@
+.AuthButtons {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.AuthButtons .LoginButton {
+    background: transparent;
+    border: 2px solid rgba(251, 251, 251, 0.4);
+    padding-inline: 39px;
+}
