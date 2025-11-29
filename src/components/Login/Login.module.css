@@ -1,0 +1,78 @@
+.Login {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.Login .Header {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.Login .Header .Title {
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -2%;
+    margin-bottom: 20px;
+}
+
+.Login .Header .Description {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0%;
+    color: #11101C80;
+}
+
+.Login .Form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.Login .Form .Group {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+}
+
+.Login .Form .Group .Input {
+    padding: 16px 18px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0%;
+    background-color: white;
+    border: 1px solid #11101C1A;
+    border-radius: 12px;
+    outline: none;
+}
+
+.Login .Form .Group .Error {
+    color: #FF5C00;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.Login .Form .Button {
+    margin-top: 40px;
+    padding: 16px 18px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0%;
+    color: white;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.Login .Form .Button:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}

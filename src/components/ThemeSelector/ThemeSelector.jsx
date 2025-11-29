@@ -13,6 +13,7 @@ const ThemeSelector = () => {
 
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme);
+    setMounted(false);
   };
   return (
     <>
