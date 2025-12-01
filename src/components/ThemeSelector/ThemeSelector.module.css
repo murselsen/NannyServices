@@ -71,5 +71,7 @@
     .ThemeSelector {
         top: 65px;
         width: 45%;
+        z-index: 110;
+        border: 1px solid black;
     }
 }
