@@ -56,3 +56,20 @@
     background-color: var(--secondary-color);
     color: oklch(0% 0 0 / 0.847);
 }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .ThemeSelector {
+        top: 90px;
+        right: 0px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        width: 45%;
+    }
+}
+
+@media (max-width: 767px) {
+    .ThemeSelector {
+        top: 65px;
+        width: 45%;
+    }
+}

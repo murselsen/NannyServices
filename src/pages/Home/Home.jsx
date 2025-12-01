@@ -1,23 +1,56 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
+
 import Navbar from "../../components/Navbar/Navbar";
 import Css from "./Home.module.css";
 
 // Icons
 import { FaCheck } from "react-icons/fa";
-
-// Icons
 import { GoArrowUpRight } from "react-icons/go";
+import { GiHamburgerMenu } from "react-icons/gi";
+
+// Components
 import NavLogo from "../../components/NavLogo/NavLogo";
 import NavList from "../../components/NavList/NavList";
 import NavAuth from "../../components/NavAuth/NavAuth";
+import ThemeSelector from "../../components/ThemeSelector/ThemeSelector";
 
 const Home = () => {
+  const isTabletOrMobile = useMediaQuery({
+    maxWidth: 1024,
+  });
+  const [isTabletOrMobileMenuShow, setIsTabletOrMobileMenuShow] =
+    useState(false);
   return (
     <div className={Css.HomePage}>
       <Navbar>
-        <NavLogo flex={2} />
-        <NavList />
-        <NavAuth />
+        {isTabletOrMobile ? (
+          <div className={Css.NavbarTM}>
+            <div className={Css.NavbarTop}>
+              <NavLogo flex={2} />
+              <div className={Css.NavbarAction}>
+                <ThemeSelector />
+                <GiHamburgerMenu
+                  className={Css.MenuToggle}
+                  onClick={() =>
+                    setIsTabletOrMobileMenuShow(!isTabletOrMobileMenuShow)
+                  }
+                />
+              </div>
+            </div>
+            {isTabletOrMobileMenuShow && (
+              <div className={Css.NavbarBody}>
+                <NavList /> <NavAuth />
+              </div>
+            )}
+          </div>
+        ) : (
+          <>
+            <NavLogo flex={2} />
+            <NavList />
+            <NavAuth />
+          </>
+        )}
       </Navbar>
       <div className={Css.Content}>
         <div className={Css.HeaderSection}>

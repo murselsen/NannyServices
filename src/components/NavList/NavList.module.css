@@ -23,3 +23,48 @@
     text-decoration: none;
     color: inherit;
 }
+
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .NavList {
+        background-color: white;
+        padding: 0;
+        flex-direction: column;
+        gap: 1px;
+        align-items: flex-start;
+    }
+
+    .NavItem {
+        color: var(--primary-color);
+        padding: 20px 40px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .NavItem:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+}
+
+@media (max-width: 767px) {
+    .NavList {
+        background-color: white;
+        padding: 0;
+        flex-direction: column;
+        gap: 1px;
+        align-items: flex-start;
+    }
+
+    .NavItem {
+        color: var(--primary-color);
+        padding: 20px 40px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .NavItem:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+}

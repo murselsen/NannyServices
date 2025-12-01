@@ -8,8 +8,12 @@ import Registration from "../Registration/Registration";
 
 // Modules
 import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 const NavAuth = ({ flex = 1 }) => {
+  const isTabletOrMobile = useMediaQuery({
+    maxWidth: 1024,
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModelContentType, setIsModelContentType] = useState(false); // 'login' or 'registration'
 
@@ -27,12 +31,12 @@ const NavAuth = ({ flex = 1 }) => {
           Login
         </button>
         <button
-          className={Css.SignupButton}
+          className={Css.SignUpButton}
           onClick={() => handleOpenModal("registration")}
         >
           Registration
         </button>
-        <ThemeSelector />
+        {!isTabletOrMobile && <ThemeSelector />}
       </div>
 
       <Modal show={isModalOpen} toggleModal={setIsModalOpen}>
