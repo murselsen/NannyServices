@@ -4,6 +4,7 @@ import Css from "./NavAuth.module.css";
 import ThemeSelector from "../ThemeSelector/ThemeSelector";
 import Modal from "../Modal/Modal";
 import Login from "../Login/Login";
+import Registration from "../Registration/Registration";
 
 // Modules
 import { useState } from "react";
@@ -36,7 +37,7 @@ const NavAuth = ({ flex = 1 }) => {
 
       <Modal show={isModalOpen} toggleModal={setIsModalOpen}>
         {/* Login form content goes here */}
-        {isModelContentType === "registration" && <h2>Registration</h2>}
+        {isModelContentType === "registration" && <Registration />}
         {isModelContentType === "login" && <Login />}
       </Modal>
     </>
