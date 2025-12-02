@@ -6,6 +6,7 @@ const Modal = ({ show, toggleModal, children }) => {
     <div
       className={Css.ModalOverlay}
       style={{ display: show ? "flex" : "none" }}
+      onClick={() => toggleModal(false)}
     >
       <div className={Css.ModalContainer}>
         <button className={Css.ModalExit} onClick={() => toggleModal(false)}>
