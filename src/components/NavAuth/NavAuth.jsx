@@ -10,7 +10,7 @@ import Registration from "../Registration/Registration";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
-const NavAuth = ({ flex = 1 }) => {
+const NavAuth = ({ flex }) => {
   const isTabletOrMobile = useMediaQuery({
     maxWidth: 1024,
   });

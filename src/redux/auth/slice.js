@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { loginUser } from "./thunks.js";
 const initialState = {
   isLoggedIn: false,
-  user: null,
+  user: {},
   token: null,
   loading: false,
   error: null,
@@ -13,8 +13,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      console.log("Setting user:", action);
-      // state.user = action.payload;
+      state.user = action.payload;
     },
   },
   extraReducers: (builder) => {

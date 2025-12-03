@@ -20,7 +20,8 @@ export const loginUser = createAsyncThunk(
       signInWithEmailAndPassword(auth, credentials.email, credentials.password)
         .then((userCredential) => {
           console.log("User logged in:", userCredential, userCredential.user);
-          return thunkAPI.dispatch(setUser(userCredential));
+          thunkAPI.dispatch(setUser(userCredential.user));
+          console.clear();
         })
         .catch((error) => {
           console.error("Error logging in:", error);
