@@ -1,16 +1,26 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, onValue } from "firebase/database";
+
+// Firebase configuration
+import { firebaseConfig } from "../config.js";
+
+// Redux slice action
+import { setItems } from "./slice.js";
+
+const firebaseApp = initializeApp(firebaseConfig);
 
 export const fetchNannies = createAsyncThunk(
   "nannies/fetchNannies",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get(
-        "https://murselsen-com-default-rtdb.firebaseio.com/"
-      );
+      const database = getDatabase(firebaseApp);
 
-      console.log("Fetched nannies:", response.data);
-      return response.data;
+      const nanniesRef = ref(database, "/");
+
+      onValue(nanniesRef, (snapshot) => {
+        return thunkAPI.dispatch(setItems(snapshot.val()));
+      });
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

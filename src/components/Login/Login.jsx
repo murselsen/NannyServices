@@ -1,7 +1,12 @@
 import Css from "./Login.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+
+import { loginUser } from "../../redux/auth/thunks.js";
+
 const Login = () => {
+  const dispatch = useDispatch();
   return (
     <div className={Css.Login}>
       <div className={Css.Header}>
@@ -24,21 +29,38 @@ const Login = () => {
             .min(6, "Minimum 6 characters")
             .required("Required"),
         })}
+        onSubmit={(values, actions) => {
+          console.log("Form data", values);
+          console.log("Actions", actions);
+          dispatch(loginUser(values));
+        }}
       >
         <Form className={Css.Form}>
           <div className={Css.Group}>
-            <Field type="email" name="email" placeholder="Email" className={Css.Input} />
+            <Field
+              type="email"
+              name="email"
+              placeholder="Email"
+              className={Css.Input}
+            />
             <ErrorMessage name="email" component="span" className={Css.Error} />
           </div>
           <div className={Css.Group}>
-            <Field type="password" name="password" placeholder="Password" className={Css.Input} />
+            <Field
+              type="password"
+              name="password"
+              placeholder="Password"
+              className={Css.Input}
+            />
             <ErrorMessage
               name="password"
               component="span"
               className={Css.Error}
             />
           </div>
-          <button type="submit" className={Css.Button}>Log In</button>
+          <button type="submit" className={Css.Button}>
+            Log In
+          </button>
         </Form>
       </Formik>
     </div>

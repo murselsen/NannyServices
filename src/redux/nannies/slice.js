@@ -3,20 +3,26 @@ import { fetchNannies } from "./thunks.js";
 const nanniesSlice = createSlice({
   name: "nannies",
   initialState: {
+    cursor: null,
+    pageSize: 4,
     items: [],
     isLoading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    setItems: (state, action) => {
+      console.log("Setting items in slice:", action.payload);
+      state.items = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchNannies.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchNannies.fulfilled, (state, action) => {
+      .addCase(fetchNannies.fulfilled, (state) => {
         state.isLoading = false;
-        state.items = action.payload;
       })
       .addCase(fetchNannies.rejected, (state, action) => {
         state.isLoading = false;
@@ -25,3 +31,4 @@ const nanniesSlice = createSlice({
   },
 });
 export default nanniesSlice.reducer;
+export const { setItems } = nanniesSlice.actions;
