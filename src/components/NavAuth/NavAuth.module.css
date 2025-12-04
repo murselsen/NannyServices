@@ -10,14 +10,19 @@
     padding-inline: 39px;
 }
 
+.AuthButtons .LoginButton:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
 @media (min-width: 768px) and (max-width: 1023px) {
     .AuthButtons {
         flex-direction: column;
         background-color: white;
     }
 
-    .LoginButton,
-    .SignUpButton {
+    .AuthButtons .LoginButton,
+    .AuthButtons .SignUpButton {
         width: 100%;
         box-sizing: border-box;
         margin-bottom: 10px;
@@ -30,8 +35,8 @@
         line-height: 20px;
     }
 
-    .LoginButton:hover,
-    .SignUpButton:hover {
+    .AuthButtons .LoginButton:hover,
+    .AuthButtons .SignUpButton:hover {
         background-color: var(--primary-color);
         color: white;
         border-radius: 0;
@@ -46,8 +51,8 @@
 
     }
 
-    .LoginButton,
-    .SignUpButton {
+    .AuthButtons .LoginButton,
+    .AuthButtons .SignUpButton {
         width: 100%;
         box-sizing: border-box;
         margin-bottom: 10px;
@@ -61,8 +66,8 @@
     }
 
 
-    .LoginButton:hover,
-    .SignUpButton:hover {
+    .AuthButtons .LoginButton:hover,
+    .AuthButtons .SignUpButton:hover {
         background-color: var(--primary-color);
         color: white;
         border-radius: 0;

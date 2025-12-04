@@ -11,7 +11,6 @@ const nanniesSlice = createSlice({
   },
   reducers: {
     setItems: (state, action) => {
-      console.log("Setting items in slice:", action.payload);
       state.items = action.payload;
     },
   },

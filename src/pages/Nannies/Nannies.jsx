@@ -10,6 +10,7 @@ import { fetchNannies } from "../../redux/nannies/thunks.js";
 import NavList from "../../components/NavList/NavList";
 import NavAuth from "../../components/NavAuth/NavAuth";
 import NavLogo from "../../components/NavLogo/NavLogo";
+import NannyList from "../../components/NannyList/NannyList";
 
 const Nannies = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,9 @@ const Nannies = () => {
         <NavLogo flex={1} />
         <NavList flex={1} />
         <NavAuth />
+      </div>
+      <div className={Css.Content}>
+        <NannyList />
       </div>
     </div>
   );
