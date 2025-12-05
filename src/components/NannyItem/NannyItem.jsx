@@ -8,7 +8,7 @@ const NannyItem = ({ data }) => {
   console.log("Nanny data in NannyItem:", data);
   return (
     <div className={Css.Card}>
-      <div className={Css.Column}>
+      <div className={Css.PhotoColumn}>
         <div className={Css.PhotoBorder}>
           <img
             src={data.avatar_url}
@@ -18,7 +18,7 @@ const NannyItem = ({ data }) => {
           />
         </div>
       </div>
-      <div className={Css.Column}>
+      <div className={Css.ContentColumn}>
         <div className={Css.Content}>
           <div className={Css.Header}>
             <div className={Css.ProfileNameArea}>
@@ -42,8 +42,22 @@ const NannyItem = ({ data }) => {
               </div>
             </div>
           </div>
-          <div className={Css.Body}></div>
-          <div className={Css.Footer}></div>
+          <div className={Css.Body}>
+            <ul className={Css.InfoList}>
+              <li className={Css.InfoItem}></li>
+              <li className={Css.InfoItem}>
+                <strong className={Css.Key}>Age:</strong>
+                {new Date().getFullYear() - new Date(data.birthday).getFullYear()}
+              </li>
+              <li className={Css.InfoItem}>
+                <strong className={Css.Key}>Experience:</strong>{" "}
+                {data.experience}
+              </li>
+            </ul>
+          </div>
+          <div className={Css.Footer}>
+            <button className={Css.Button}>View Profile</button>
+          </div>
         </div>
       </div>
     </div>

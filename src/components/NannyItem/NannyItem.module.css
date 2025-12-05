@@ -9,6 +9,14 @@
     border: 1px solid black;
 }
 
+.Card .PhotoColumn {
+    width: 168px;
+}
+
+.Card .ContentColumn {
+    width: 100%;
+}
+
 .PhotoBorder {
     width: 120px;
     height: 120px;
@@ -20,4 +28,48 @@
 .Photo {
     border-radius: 15px;
     width: 100%;
+}
+
+
+.Content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+.Content .Header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Content .Body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.Content .Footer {
+    width: 100%;
+}
+
+.InfoList {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.InfoList .InfoItem {
+    padding: 8px 16px;
+    border-radius: 24px;
+    background: #F3F3F3;
+}
+
+.InfoList .InfoItem .Key {
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    margin-right: 4px;
+    color: #8A8A89;
 }
