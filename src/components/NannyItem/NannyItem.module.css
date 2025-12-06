@@ -42,6 +42,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    font-family: "Inter", sans-serif;
 }
 
 .Content .Body {

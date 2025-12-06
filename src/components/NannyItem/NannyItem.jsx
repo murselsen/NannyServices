@@ -7,10 +7,12 @@ import Css from "./NannyItem.module.css";
 // Icons
 import { FaLocationDot, FaStar } from "react-icons/fa6";
 
+// Components
+import Modal from "../Modal/Modal";
+
 const NannyItem = ({ data }) => {
   const [isMoreView, setIsMoreView] = useState(false);
-
-  console.log("Nanny data in NannyItem:", data);
+  const [isAppointmentView, setIsAppointmentView] = useState(false);
   return (
     <div className={Css.Card}>
       <div className={Css.PhotoColumn}>
@@ -108,10 +110,21 @@ const NannyItem = ({ data }) => {
               </ul>
               <button
                 className={Css.Button}
-                onClick={() => setIsMoreView(false)}
+                onClick={() => {
+                  setIsMoreView(false);
+                  setIsAppointmentView(true);
+                }}
               >
                 Make an appointment
               </button>
+
+              <Modal
+                show={isAppointmentView}
+                toggleModal={setIsAppointmentView}
+              >
+                <h2>Make an Appointment with {data.name}</h2>
+                {/* Appointment form elements go here */}
+              </Modal>
             </div>
           )}
         </div>
