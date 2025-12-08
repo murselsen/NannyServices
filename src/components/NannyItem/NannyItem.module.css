@@ -31,6 +31,7 @@
 }
 
 
+
 .Content {
     display: flex;
     flex-direction: column;
@@ -45,10 +46,48 @@
     font-family: "Inter", sans-serif;
 }
 
+.Content .Header .ProfileNameArea {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.Content .Header .InfoArea {
+    display: flex;
+    align-items: start;
+
+}
+
+.Content .Header .InfoArea .Info:first-child {
+    border-inline-start: none;
+}
+
+.Content .Header .InfoArea .Info:last-child {
+    border-inline-end: none;
+}
+
+.Content .Header .InfoArea .Info {
+    display: inline-flex;
+    gap: 8px;
+    font-weight: 600;
+    padding-inline: 16px;
+    border-inline: 1px solid #C4C4C4;
+}
+
+.Content .Header .InfoArea .Info .Value {
+    color: #38CD3E;
+
+}
+
+
 .Content .Body {
     display: flex;
     flex-direction: column;
     gap: 24px;
+}
+
+.Content .Body .Message {
+    color: #11101C80;
 }
 
 .Content .Footer {
