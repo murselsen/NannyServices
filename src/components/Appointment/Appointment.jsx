@@ -1,10 +1,11 @@
 import Css from "./Appointment.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { sendAnAppointment } from "../../redux/nannies/thunks";
 
 const Appointment = ({ data = {} }) => {
-  console.log("Appointment data:", data);
+  const dispatch = useDispatch();
   return (
     <div className={Css.Appointment}>
       <div className={Css.Header}>
@@ -23,23 +24,33 @@ const Appointment = ({ data = {} }) => {
         </div>
       </div>
       <Formik
-      // initialValues={{
-      //   email: "",
-      //   password: "",
-      // }}
-      // validationSchema={Yup.object({
-      //   email: Yup.string()
-      //     .email("Invalid email format")
-      //     .required("Required"),
-      //   password: Yup.string()
-      //     .min(6, "Minimum 6 characters")
-      //     .required("Required"),
-      // })}
-      // onSubmit={(values, actions) => {
-      //   console.log("Form data", values);
-      //   console.log("Actions", actions);
-      //   dispatch(loginUser(values));
-      // }}
+        initialValues={{
+          address: "",
+          phone: "",
+          childAge: "",
+          appointmentTime: "",
+          email: "",
+          parentName: "",
+          comment: "",
+        }}
+        validationSchema={Yup.object({
+          address: Yup.string().required("Required"),
+          phone: Yup.string().required("Required"),
+          childAge: Yup.number().required("Required").min(0, "Invalid age"),
+          appointmentTime: Yup.string().required("Required"),
+          email: Yup.string().email("Invalid email").required("Required"),
+          parentName: Yup.string().required("Required"),
+          comment: Yup.string()
+            .max(500, "Must be 500 characters or less")
+            .required("Required"),
+        })}
+        onSubmit={(values, actions) => {
+          values.nanny = data;
+
+          dispatch(sendAnAppointment(values));
+          actions.setSubmitting(false);
+          actions.resetForm();
+        }}
       >
         <Form className={Css.Form}>
           <div className={Css.RowGroup}>

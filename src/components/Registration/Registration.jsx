@@ -2,7 +2,12 @@ import Css from "./Registration.module.css";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../redux/auth/thunks.js";
+
 const Registration = () => {
+  const dispatch = useDispatch();
   return (
     <div className={Css.Registration}>
       <div className={Css.Header}>
@@ -30,6 +35,10 @@ const Registration = () => {
             .min(6, "Minimum 6 characters")
             .required("Required"),
         })}
+        onSubmit={(values, actions) => {
+          dispatch(registerUser(values));
+          actions.resetForm();
+        }}
       >
         <Form className={Css.Form}>
           <div className={Css.Group}>
