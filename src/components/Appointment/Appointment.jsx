@@ -91,6 +91,7 @@ const Appointment = ({ data = {} }) => {
                 name="appointmentTime"
                 placeholder="Time"
                 className={Css.Input}
+                style={{ width: "100%" }}
               />
               <ErrorMessage
                 name="appointmentTime"
