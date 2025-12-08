@@ -15,6 +15,13 @@ const Appointment = ({ data = {} }) => {
           below so we can match you with the perfect care partner.
         </p>
       </div>
+      <div className={Css.Profile}>
+        <img src={data.avatar_url} className={Css.Image} alt={data.name} />
+        <div className={Css.Info}>
+          <div className={Css.Sub}>Your Nanny</div>
+          <div className={Css.Name}>{data.name}</div>
+        </div>
+      </div>
       <Formik
       // initialValues={{
       //   email: "",
@@ -35,6 +42,63 @@ const Appointment = ({ data = {} }) => {
       // }}
       >
         <Form className={Css.Form}>
+          <div className={Css.RowGroup}>
+            <div className={Css.Group}>
+              <Field
+                type="text"
+                name="address"
+                placeholder="Address"
+                className={Css.Input}
+              />
+              <ErrorMessage
+                name="address"
+                component="span"
+                className={Css.Error}
+              />
+            </div>
+            <div className={Css.Group}>
+              <Field
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
+                className={Css.Input}
+              />
+              <ErrorMessage
+                name="phone"
+                component="span"
+                className={Css.Error}
+              />
+            </div>
+          </div>
+
+          <div className={Css.RowGroup}>
+            <div className={Css.Group}>
+              <Field
+                type="number"
+                name="childAge"
+                placeholder="Child Age"
+                className={Css.Input}
+              />
+              <ErrorMessage
+                name="childAge"
+                component="span"
+                className={Css.Error}
+              />
+            </div>
+            <div className={Css.Group}>
+              <Field
+                type="time"
+                name="appointmentTime"
+                placeholder="Time"
+                className={Css.Input}
+              />
+              <ErrorMessage
+                name="appointmentTime"
+                component="span"
+                className={Css.Error}
+              />
+            </div>
+          </div>
           <div className={Css.Group}>
             <Field
               type="email"
@@ -46,19 +110,32 @@ const Appointment = ({ data = {} }) => {
           </div>
           <div className={Css.Group}>
             <Field
-              type="password"
-              name="password"
-              placeholder="Password"
+              type="text"
+              name="parentName"
+              placeholder="Father's or Mother's Name"
               className={Css.Input}
             />
             <ErrorMessage
-              name="password"
+              name="parentName"
+              component="span"
+              className={Css.Error}
+            />
+          </div>
+          <div className={Css.Group}>
+            <Field
+              as="textarea"
+              name="comment"
+              placeholder="Comment"
+              className={Css.Input}
+            />
+            <ErrorMessage
+              name="comment"
               component="span"
               className={Css.Error}
             />
           </div>
           <button type="submit" className={Css.Button}>
-            Log In
+            Send
           </button>
         </Form>
       </Formik>

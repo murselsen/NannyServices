@@ -26,10 +26,48 @@
     color: #11101C80;
 }
 
+.Appointment .Profile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.Appointment .Profile .Image {
+    width: 44px;
+    height: 44px;
+    border-radius: 15px;
+    opacity: 1;
+    box-shadow: 1px 1px 1px #E0E0E0;
+}
+
+
+.Appointment .Profile .Info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.Appointment .Profile .Info .Sub {
+    font-family: Helvetica Neue;
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 12px;
+
+    line-height: 16px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    color: #8A8A89;
+}
+
 .Appointment .Form {
     display: flex;
     flex-direction: column;
     gap: 18px;
+}
+
+.Appointment .Form .RowGroup {
+    display: flex;
+    gap: 8px;
 }
 
 .Appointment .Form .Group {
