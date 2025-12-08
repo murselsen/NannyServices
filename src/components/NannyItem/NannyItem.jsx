@@ -1,3 +1,5 @@
+// React
+import React from "react";
 // Css
 import Css from "./NannyItem.module.css";
 
@@ -5,17 +7,10 @@ import Css from "./NannyItem.module.css";
 import { FaLocationDot, FaStar } from "react-icons/fa6";
 import { IoLocationOutline } from "react-icons/io5";
 
-// Components
-import Modal from "../Modal/Modal";
-
-const NannyItem = ({
-  isMoreView,
-  toggleIsMoreView,
-  toggleIsAppointmentView,
-  data,
-}) => {
+const NannyItem = ({ onOpenAppointment, data }) => {
+  const [isMoreView, setIsMoreView] = React.useState(false);
   return (
-    <>
+    <li>
       <div className={Css.Card}>
         <div className={Css.PhotoColumn}>
           <div className={Css.PhotoBorder}>
@@ -69,8 +64,11 @@ const NannyItem = ({
                 </li>
                 <li className={Css.InfoItem}>
                   <strong className={Css.Key}>Characters:</strong>
-                  {data.characters.map((char) => (
-                    <b className={Css.ArrItem}>{char}, </b>
+                  {data.characters.map((char, index) => (
+                    <b key={index} className={Css.ArrItem}>
+                      {char}
+                      {", "}
+                    </b>
                   ))}
                 </li>
                 <li className={Css.InfoItem}>
@@ -82,7 +80,7 @@ const NannyItem = ({
               {!isMoreView && (
                 <button
                   className={Css.Button}
-                  onClick={() => toggleIsMoreView(true)}
+                  onClick={() => setIsMoreView(true)}
                 >
                   Read More
                 </button>
@@ -114,7 +112,7 @@ const NannyItem = ({
                 <button
                   className={Css.Button}
                   onClick={() => {
-                    toggleIsAppointmentView(true);
+                    onOpenAppointment();
                   }}
                 >
                   Make an appointment
@@ -124,7 +122,7 @@ const NannyItem = ({
           </div>
         </div>
       </div>
-    </>
+    </li>
   );
 };
 
