@@ -14,11 +14,9 @@ const NavAuth = ({ flex }) => {
   const isTabletOrMobile = useMediaQuery({
     maxWidth: 1024,
   });
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModelContentType, setIsModelContentType] = useState(false); // 'login' or 'registration'
 
   const handleOpenModal = (type) => {
-    setIsModalOpen(true);
     setIsModelContentType(type);
   };
   return (
@@ -38,12 +36,16 @@ const NavAuth = ({ flex }) => {
         </button>
         {!isTabletOrMobile && <ThemeSelector />}
       </div>
-
-      <Modal show={isModalOpen} toggleModal={setIsModalOpen}>
-        {/* Login form content goes here */}
-        {isModelContentType === "registration" && <Registration />}
-        {isModelContentType === "login" && <Login />}
-      </Modal>
+      {isModelContentType === "registration" && (
+        <Modal closeModal={() => setIsModelContentType(false)}>
+          <Registration />
+        </Modal>
+      )}
+      {isModelContentType === "login" && (
+        <Modal closeModal={() => setIsModelContentType(false)}>
+          <Login />
+        </Modal>
+      )}
     </>
   );
 };
