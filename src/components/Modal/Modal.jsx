@@ -1,14 +1,11 @@
 import Css from "./Modal.module.css";
 import { FaTimes } from "react-icons/fa";
 
-const Modal = ({ show, toggleModal, children }) => {
+const Modal = ({ closeModal, children }) => {
   return (
-    <div
-      className={Css.ModalOverlay}
-      style={{ display: show ? "flex" : "none" }}
-    >
+    <div className={Css.ModalOverlay}>
       <div className={Css.ModalContainer}>
-        <button className={Css.ModalExit} onClick={() => toggleModal(false)}>
+        <button className={Css.ModalExit} onClick={() => closeModal(false)}>
           <FaTimes size={16} />
         </button>
         {children}
