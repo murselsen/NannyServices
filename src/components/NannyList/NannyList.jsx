@@ -1,47 +1,49 @@
 // Modules
 import { useSelector } from "react-redux";
-
 // Css
 import Css from "./NannyList.module.css";
 
 // Commponents
-import Filters from "../Filters/Filters";
-import NannyItem from "../NannyItem/NannyItem";
 import { useState } from "react";
 import Modal from "../Modal/Modal";
+import NannyItem from "../NannyItem/NannyItem";
+import Appointment from "../Appointment/Appointment";
 
 const NannyList = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMoreView, setIsMoreView] = useState(false);
-  const [isAppointmentView, setIsAppointmentView] = useState(false);
+  const [selectedNanny, setSelectedNanny] = useState(null);
   const { items, isLoading } = useSelector((state) => state.nannies);
+
+  const handleOpenModal = (nanny) => {
+    setSelectedNanny(nanny);
+  };
+  const handleCloseModal = () => {
+    setSelectedNanny(null);
+  };
+  const renderNannies = () => {
+    return items.length > 0 ? (
+      items.map((nanny) => {
+        return (
+          <NannyItem
+            key={nanny.itemId}
+            data={nanny}
+            onOpenAppointment={() => handleOpenModal(nanny)}
+          />
+        );
+      })
+    ) : (
+      <div>No nannies available</div>
+    );
+  };
 
   return (
     <div className={Css.Container}>
-      <Filters />
-
-      {isLoading ? (
-        <p>Loading nannies...</p>
-      ) : (
-        <ul className={Css.List}>
-          {items.map((nanny, index) => (
-            <li key={index}>
-              <NannyItem
-                index={index}
-                isMoreView={isMoreView}
-                toggleIsMoreView={setIsMoreView}
-                toggleIsAppointmentView={setIsAppointmentView}
-                data={nanny}
-              />
-              <Modal
-                show={isAppointmentView}
-                toggleModal={setIsAppointmentView}
-              >
-                {nanny.name}
-              </Modal>
-            </li>
-          ))}
-        </ul>
+      <ul className={Css.List}>
+        {isLoading ? <div>Loading...</div> : renderNannies()}
+      </ul>
+      {selectedNanny && (
+        <Modal closeModal={handleCloseModal}>
+          <Appointment data={selectedNanny} />
+        </Modal>
       )}
     </div>
   );
