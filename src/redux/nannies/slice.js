@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchNannies } from "./thunks.js";
+import { nanoid } from "nanoid";
 const nanniesSlice = createSlice({
   name: "nannies",
   initialState: {
@@ -11,7 +12,12 @@ const nanniesSlice = createSlice({
   },
   reducers: {
     setItems: (state, action) => {
-      state.items = action.payload;
+      const data = action.payload;
+      data.forEach((item) => {
+        item.itemId = nanoid();
+      });
+
+      state.items = data;
     },
   },
   extraReducers: (builder) => {
