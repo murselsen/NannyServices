@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Toaster } from "react-hot-toast";
 
 // Pages
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/nannies" element={<Nannies />} />
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
+      <Toaster position="top-right" reverseOrder={false} />
     </Suspense>
   );
 };

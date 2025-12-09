@@ -4,12 +4,14 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  sendEmailVerification,
 } from "firebase/auth";
-import { getDatabase, ref, set } from "firebase/database";
 // Firebase configuration
 import { firebaseConfig } from "../config.js";
+import toast from "react-hot-toast";
+
+// Redux action to set user
 import { setUser } from "./slice.js";
-import { nanoid } from "nanoid";
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
@@ -22,9 +24,8 @@ export const loginUser = createAsyncThunk(
 
       signInWithEmailAndPassword(auth, credentials.email, credentials.password)
         .then((userCredential) => {
-          console.log("User logged in:", userCredential.user);
           const user = userCredential.user;
-          thunkAPI.dispatch(setUser(user));
+          return thunkAPI.dispatch(setUser(user));
         })
         .catch((error) => {
           console.error("Error logging in:", error);
@@ -40,31 +41,38 @@ export const registerUser = createAsyncThunk(
   "auth/registeruser",
   async (credentials, thunkAPI) => {
     try {
+      console.log("Registering user with credentials:", credentials);
       const auth = getAuth(firebaseApp);
 
-      const database = getDatabase(firebaseApp);
       createUserWithEmailAndPassword(
         auth,
         credentials.email,
         credentials.password
       )
         .then((userCredential) => {
-          console.log(
-            "User registered in:",
-            userCredential,
-            userCredential.user
-          );
-          const usersRef = ref(database, "users/" + nanoid());
           const user = userCredential.user;
-          user.name = credentials.name;
-          user.favoriteNannies = [];
-          set(usersRef, user);
 
-          thunkAPI.dispatch(setUser(user));
-          return;
+          sendEmailVerification(user)
+            .then(() => {
+              toast.success("Verification email sent successfully");
+            })
+            .catch((error) => {
+              toast.error("Error sending verification email: " + error.message);
+              return thunkAPI.rejectWithValue(error.message);
+            })
+            .finally(() => {
+              toast.loading(
+                "Verification email sended. Please check your inbox.",
+                {
+                  duration: 1000,
+                }
+              );
+              return thunkAPI.dispatch(setUser(user));
+            });
+          return userCredential;
         })
         .catch((error) => {
-          console.error("Error logging in:", error);
+          console.error("Error registering user:", error);
           return thunkAPI.rejectWithValue(error.message);
         });
     } catch (error) {

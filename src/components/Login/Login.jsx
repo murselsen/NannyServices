@@ -29,9 +29,7 @@ const Login = () => {
             .min(6, "Minimum 6 characters")
             .required("Required"),
         })}
-        onSubmit={(values, actions) => {
-          console.log("Form data", values);
-          console.log("Actions", actions);
+        onSubmit={(values) => {
           dispatch(loginUser(values));
         }}
       >
