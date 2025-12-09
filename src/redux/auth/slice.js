@@ -13,8 +13,8 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      console.log("Reducer Action:", action);
-      state.user = action.payload;
+      state.user = action.payload ? action.payload : {};
+      state.isLoggedIn = action.payload ? true : false;
     },
   },
   extraReducers: (builder) => {
@@ -40,7 +40,6 @@ const authSlice = createSlice({
         state.loading = false;
         state.isLoggedIn = true;
         state.error = null;
-        console.log("RegisterUser Fulfilled Action:", action);
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;

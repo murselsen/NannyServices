@@ -21,10 +21,11 @@ const NannyList = () => {
   };
   const renderNannies = () => {
     return items.length > 0 ? (
-      items.map((nanny) => {
+      items.map((nanny, index) => {
         return (
           <NannyItem
             key={nanny.itemId}
+            index={index}
             data={nanny}
             onOpenAppointment={() => handleOpenModal(nanny)}
           />

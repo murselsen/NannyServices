@@ -21,7 +21,6 @@ export const loginUser = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const auth = getAuth(firebaseApp);
-
       return signInWithEmailAndPassword(
         auth,
         credentials.email,
@@ -83,6 +82,24 @@ export const registerUser = createAsyncThunk(
           console.error("Error registering user:", error);
           return thunkAPI.rejectWithValue(error.message);
         });
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const currentUser = createAsyncThunk(
+  "auth/currentuser",
+  async (_, thunkAPI) => {
+    try {
+      const auth = getAuth(firebaseApp);
+      const user = auth.currentUser;
+      if (user) {
+        toast.success("User is logged in");
+        return thunkAPI.dispatch(setUser(user));
+      } else {
+        return thunkAPI.dispatch(setUser(null));
+      }
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

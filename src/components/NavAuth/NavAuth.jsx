@@ -14,7 +14,8 @@ import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
 // Redux Modules
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/auth/slice.js";
 // Redux - Auth Slice
 
 const NavAuth = ({ flex }) => {
@@ -23,10 +24,16 @@ const NavAuth = ({ flex }) => {
     maxWidth: 1024,
   });
   const [isModelContentType, setIsModelContentType] = useState(false); // 'login' or 'registration'
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(setUser(null));
+  };
 
   const handleOpenModal = (type) => {
     setIsModelContentType(type);
   };
+  
   return (
     <div className={Css.AuthButtons} style={{ flex: flex }}>
       {isLoggedIn && user ? (
@@ -39,10 +46,7 @@ const NavAuth = ({ flex }) => {
               {user.providerData[0].email.split("@")[0]}
             </span>
           </div>
-          <button
-            className={Css.SignUpButton}
-            onClick={() => handleOpenModal("logout")}
-          >
+          <button className={Css.SignUpButton} onClick={() => handleLogout()}>
             Log out
           </button>
         </>

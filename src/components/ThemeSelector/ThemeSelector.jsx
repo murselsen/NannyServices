@@ -4,15 +4,24 @@ import Css from "./ThemeSelector.module.css";
 import { BsFillPaletteFill } from "react-icons/bs";
 import { FaPaintBrush } from "react-icons/fa";
 
+//Redux Modules
+import { useDispatch, useSelector } from "react-redux";
+// Redux Slice
+import { setMode } from "../../redux/themeSlice.js";
+
 const ThemeSelector = () => {
-  const [theme, setTheme] = useState("red");
+  const dispatch = useDispatch();
+  const currentMode = useSelector((state) => state.theme.mode);
+  const [theme, setTheme] = useState(currentMode);
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
   const handleThemeChange = (newTheme) => {
+    console.log("Changing theme to :", newTheme);
     setTheme(newTheme);
+    dispatch(setMode(newTheme));
     setMounted(false);
   };
   return (

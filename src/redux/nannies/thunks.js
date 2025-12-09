@@ -1,9 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, onValue } from "firebase/database";
 
+// Firebase
 // Firebase configuration
 import { firebaseConfig } from "../config.js";
+import { initializeApp } from "firebase/app";
+// Firebase Modules
+import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getAuth } from "firebase/auth";
 
 // Redux slice action
 import { setItems } from "./slice.js";
@@ -53,6 +56,33 @@ export const sendAnAppointment = createAsyncThunk(
           toast.error("Error sending appointment: " + error.message);
           return thunkAPI.rejectWithValue(error.message);
         });
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const toggleFavoriteNanny = createAsyncThunk(
+  "nannies/toggleFavoriteNanny",
+  async ({ nannyIndex, isFavorite }, thunkAPI) => {
+    try {
+      const database = getDatabase(firebaseApp);
+      const favoriteRef = ref(database, `nannies/${nannyIndex}`);
+
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      console.log("Reference to update:", favoriteRef, "Ref User:", user);
+      console.log("isFavorite:", isFavorite);
+      // set(favoriteRef, {
+      //     favorite
+      //   })
+      //     .then(() => {
+      //       // Data saved successfully!
+      //     })
+      //     .catch((error) => {
+      //       // The write failed...
+      //     });
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

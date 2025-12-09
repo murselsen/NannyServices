@@ -7,6 +7,7 @@ const theme = createSlice({
   },
   reducers: {
     setMode: (state, action) => {
+      console.log("Setting theme mode to :", action.payload);
       state.mode = action.payload;
     },
   },

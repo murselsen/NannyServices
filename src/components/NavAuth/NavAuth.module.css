@@ -15,6 +15,31 @@
     color: white;
 }
 
+.AuthButtons .Profile {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-inline-end: 24px;
+}
+
+.AuthButtons .Profile .Avatar {
+    padding: 12px;
+    background-color: white;
+    border-radius: 10px;
+    color: var(--primary-color);
+}
+
+.AuthButtons .Profile .Name {
+    color: white;
+    font-family: Helvetica Neue;
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: -1%;
+    text-transform: capitalize;
+}
+
 @media (min-width: 768px) and (max-width: 1023px) {
     .AuthButtons {
         flex-direction: column;
@@ -42,6 +67,23 @@
         border-radius: 0;
 
     }
+
+    .AuthButtons .Profile {
+        padding: 5px 30px 0px;
+        align-items: center;
+        gap: 5px;
+    }
+
+
+    .AuthButtons .Profile .Avatar {
+        color: var(--primary-color);
+        background-color: var(--secondary-color);
+    }
+
+    .AuthButtons .Profile .Name {
+        color: var(--primary-color);
+
+    }
 }
 
 @media (max-width: 767px) {
@@ -65,12 +107,26 @@
         line-height: 20px;
     }
 
-
     .AuthButtons .LoginButton:hover,
     .AuthButtons .SignUpButton:hover {
         background-color: var(--primary-color);
         color: white;
         border-radius: 0;
+    }
 
+    .AuthButtons .Profile {
+        padding: 5px 30px 0px;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .AuthButtons .Profile .Avatar {
+        color: var(--primary-color);
+        background-color: var(--secondary-color);
+
+    }
+
+    .AuthButtons .Profile .Name {
+        color: var(--primary-color);
     }
 }

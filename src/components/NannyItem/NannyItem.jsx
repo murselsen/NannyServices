@@ -1,14 +1,28 @@
 // React
-import React from "react";
+import React, { useState } from "react";
 // Css
 import Css from "./NannyItem.module.css";
 
 // Icons
 import { FaLocationDot, FaStar } from "react-icons/fa6";
 import { IoLocationOutline } from "react-icons/io5";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 
-const NannyItem = ({ onOpenAppointment, data }) => {
-  const [isMoreView, setIsMoreView] = React.useState(false);
+//Redux dispatch
+import { useDispatch } from "react-redux";
+import { toggleFavoriteNanny } from "../../redux/nannies/thunks.js";
+
+const NannyItem = ({ onOpenAppointment, data, index }) => {
+  const dispatch = useDispatch();
+
+  const [isMoreView, setIsMoreView] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const handleFavorite = (value) => {
+    setIsFavorite(value);
+    dispatch(toggleFavoriteNanny({ nannyIndex: index, isFavorite: value }));
+  };
+
   return (
     <li>
       <div className={Css.Card}>
@@ -44,6 +58,20 @@ const NannyItem = ({ onOpenAppointment, data }) => {
                     Price / 1 hour:
                     <span className={Css.Value}> {data.price_per_hour}$</span>
                   </span>
+                </div>
+                <div className={Css.Info}>
+                  {isFavorite ? (
+                    <FaHeart
+                      color="red"
+                      size={22}
+                      onClick={() => handleFavorite(false)}
+                    />
+                  ) : (
+                    <FaRegHeart
+                      size={22}
+                      onClick={() => handleFavorite(true)}
+                    />
+                  )}
                 </div>
               </div>
             </div>
