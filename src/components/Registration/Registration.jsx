@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../redux/auth/thunks.js";
 
-const Registration = () => {
+const Registration = ({ closeModal }) => {
   const dispatch = useDispatch();
   return (
     <div className={Css.Registration}>
@@ -38,6 +38,7 @@ const Registration = () => {
         onSubmit={(values, actions) => {
           dispatch(registerUser(values));
           actions.resetForm();
+          closeModal();
         }}
       >
         <Form className={Css.Form}>

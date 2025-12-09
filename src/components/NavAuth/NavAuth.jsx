@@ -38,12 +38,12 @@ const NavAuth = ({ flex }) => {
       </div>
       {isModelContentType === "registration" && (
         <Modal closeModal={() => setIsModelContentType(false)}>
-          <Registration />
+          <Registration closeModal={() => setIsModelContentType(false)} />
         </Modal>
       )}
       {isModelContentType === "login" && (
         <Modal closeModal={() => setIsModelContentType(false)}>
-          <Login />
+          <Login closeModal={() => setIsModelContentType(false)} />
         </Modal>
       )}
     </>

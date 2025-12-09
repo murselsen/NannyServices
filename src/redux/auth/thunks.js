@@ -22,14 +22,22 @@ export const loginUser = createAsyncThunk(
     try {
       const auth = getAuth(firebaseApp);
 
-      signInWithEmailAndPassword(auth, credentials.email, credentials.password)
+      return signInWithEmailAndPassword(
+        auth,
+        credentials.email,
+        credentials.password
+      )
         .then((userCredential) => {
           const user = userCredential.user;
+          toast.success("Login successful");
           return thunkAPI.dispatch(setUser(user));
         })
         .catch((error) => {
           console.error("Error logging in:", error);
           return thunkAPI.rejectWithValue(error.message);
+        })
+        .finally(() => {
+          toast.loading("Logging in...", { duration: 2000 });
         });
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

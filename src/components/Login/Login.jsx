@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { loginUser } from "../../redux/auth/thunks.js";
 
-const Login = () => {
+const Login = ({ closeModal }) => {
   const dispatch = useDispatch();
   return (
     <div className={Css.Login}>
@@ -29,8 +29,10 @@ const Login = () => {
             .min(6, "Minimum 6 characters")
             .required("Required"),
         })}
-        onSubmit={(values) => {
+        onSubmit={(values, actions) => {
           dispatch(loginUser(values));
+          actions.resetForm();
+          closeModal();
         }}
       >
         <Form className={Css.Form}>
