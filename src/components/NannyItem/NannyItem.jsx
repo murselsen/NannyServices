@@ -16,11 +16,15 @@ const NannyItem = ({ onOpenAppointment, data, index }) => {
   const dispatch = useDispatch();
 
   const [isMoreView, setIsMoreView] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(
+    data.favoritedUsers?.includes(data.uid)
+  );
 
   const handleFavorite = (value) => {
     setIsFavorite(value);
-    dispatch(toggleFavoriteNanny({ nannyIndex: index, isFavorite: value }));
+    dispatch(
+      toggleFavoriteNanny({ data: data, nannyIndex: index, isFavorite: value })
+    );
   };
 
   return (
@@ -92,12 +96,13 @@ const NannyItem = ({ onOpenAppointment, data, index }) => {
                 </li>
                 <li className={Css.InfoItem}>
                   <strong className={Css.Key}>Characters:</strong>
-                  {data.characters.map((char, index) => (
-                    <b key={index} className={Css.ArrItem}>
-                      {char}
-                      {", "}
-                    </b>
-                  ))}
+                  {data.characters &&
+                    data.characters.map((char, index) => (
+                      <b key={index} className={Css.ArrItem}>
+                        {char}
+                        {", "}
+                      </b>
+                    ))}
                 </li>
                 <li className={Css.InfoItem}>
                   <strong className={Css.Key}>Education:</strong>

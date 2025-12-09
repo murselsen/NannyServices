@@ -64,7 +64,7 @@ export const sendAnAppointment = createAsyncThunk(
 
 export const toggleFavoriteNanny = createAsyncThunk(
   "nannies/toggleFavoriteNanny",
-  async ({ nannyIndex, isFavorite }, thunkAPI) => {
+  async ({ data, nannyIndex, isFavorite }, thunkAPI) => {
     try {
       const database = getDatabase(firebaseApp);
       const favoriteRef = ref(database, `nannies/${nannyIndex}`);
@@ -73,16 +73,26 @@ export const toggleFavoriteNanny = createAsyncThunk(
       const user = auth.currentUser;
 
       console.log("Reference to update:", favoriteRef, "Ref User:", user);
+      console.log("nannyIndex:", nannyIndex);
+      console.log("Nanny Data:", data);
       console.log("isFavorite:", isFavorite);
-      // set(favoriteRef, {
-      //     favorite
-      //   })
-      //     .then(() => {
-      //       // Data saved successfully!
-      //     })
-      //     .catch((error) => {
-      //       // The write failed...
-      //     });
+
+      set(favoriteRef, {
+        ...data,
+        favoritedUsers: isFavorite
+          ? data.favoritedUsers.includes(user.uid)
+            ? data.favoritedUsers
+            : [...(data.favoritedUsers || []), user.uid]
+          : data.favoritedUsers.filter((uid) => uid !== user.uid),
+      })
+        .then(() => {
+          console.log(data);
+          toast.success("Nanny favorite status updated successfully");
+        })
+        .catch((error) => {
+          toast.error("Error updating favorite status: " + error.message);
+          return thunkAPI.rejectWithValue(error.message);
+        });
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

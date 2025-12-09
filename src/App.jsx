@@ -8,8 +8,6 @@ import "./App.css";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-// Redux thunks
-import { currentUser } from "./redux/auth/thunks.js";
 
 // Pages
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -29,7 +27,7 @@ const App = () => {
         <Route path="/nannies" element={<Nannies />} />
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="top-right" reverseOrder={true} />
     </Suspense>
   );
 };

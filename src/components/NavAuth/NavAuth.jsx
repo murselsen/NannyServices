@@ -33,7 +33,7 @@ const NavAuth = ({ flex }) => {
   const handleOpenModal = (type) => {
     setIsModelContentType(type);
   };
-  
+
   return (
     <div className={Css.AuthButtons} style={{ flex: flex }}>
       {isLoggedIn && user ? (
@@ -74,7 +74,7 @@ const NavAuth = ({ flex }) => {
             <Modal closeModal={() => setIsModelContentType(false)}>
               <Login closeModal={() => setIsModelContentType(false)} />
             </Modal>
-          )}{" "}
+          )}
         </>
       )}
     </div>
