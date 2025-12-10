@@ -44,4 +44,4 @@ const nanniesSlice = createSlice({
   },
 });
 export default nanniesSlice.reducer;
-export const { setItems, resetNannies } = nanniesSlice.actions;
+export const { setItems, resetNannies, setFilter } = nanniesSlice.actions;

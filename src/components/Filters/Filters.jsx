@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Css from "./Filters.module.css";
 // Icons
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
+import { useDispatch } from "react-redux";
+import { setFilter } from "../../redux/nannies/slice";
 
 const Filters = () => {
   const filterList = [
@@ -48,7 +50,13 @@ const Filters = () => {
     value: null,
     title: "Show All",
   });
-  console.log(selectedFilter);
+  const dispatch = useDispatch();
+
+  const handleFilterChange = (filter) => {
+    setSelectedFilter(filter);
+    dispatch(setFilter(filter));
+  };
+
   return (
     <div className={Css.Filters}>
       <b className={Css.Title}>Filters</b>
@@ -81,7 +89,7 @@ const Filters = () => {
                   selectedFilter.key === filter.key &&
                   selectedFilter.value === filter.value
                 }
-                selectFilter={setSelectedFilter}
+                selectFilter={handleFilterChange}
               />
             ))}
           </div>
