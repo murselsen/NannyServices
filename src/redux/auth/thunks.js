@@ -12,7 +12,6 @@ import toast from "react-hot-toast";
 
 // Redux action to set user
 import { setUser } from "./slice.js";
-import { getDatabase, ref, set } from "firebase/database";
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
