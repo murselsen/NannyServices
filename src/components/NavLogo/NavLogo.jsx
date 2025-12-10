@@ -7,6 +7,9 @@ const NavLogo = ({ flex }) => {
       style={{
         flex: flex,
       }}
+      onClick={() => {
+        window.location.href = "/";
+      }}
     >
       Nanny.Services
     </div>

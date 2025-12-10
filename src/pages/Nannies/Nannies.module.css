@@ -96,4 +96,8 @@
         gap: 1px;
         flex-direction: column;
     }
+
+    .Content {
+        padding: 5px;
+    }
 }
