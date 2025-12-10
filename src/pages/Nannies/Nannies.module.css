@@ -55,6 +55,10 @@
         flex-direction: column;
         gap: 1px;
     }
+
+    .Content {
+        padding: 10px 20px;
+    }
 }
 
 @media (max-width: 767px) {
