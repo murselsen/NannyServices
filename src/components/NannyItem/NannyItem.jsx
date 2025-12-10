@@ -9,16 +9,24 @@ import { IoLocationOutline } from "react-icons/io5";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 //Redux dispatch
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleFavoriteNanny } from "../../redux/nannies/thunks.js";
 
 const NannyItem = ({ onOpenAppointment, data, index }) => {
   const dispatch = useDispatch();
-
-  const [isMoreView, setIsMoreView] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(
-    data.favoritedUsers?.includes(data.uid)
+  const authUserUid = useSelector((state) => state.auth.user?.uid);
+  const { users } = data;
+  const userFavorited = users && users.includes(authUserUid);
+  console.log(
+    "User favorited status:",
+    userFavorited,
+    "for nanny index:",
+    index,
+    "with user uid:",
+    authUserUid
   );
+  const [isMoreView, setIsMoreView] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(userFavorited);
 
   const handleFavorite = (value) => {
     setIsFavorite(value);

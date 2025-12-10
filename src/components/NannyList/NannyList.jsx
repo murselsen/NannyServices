@@ -10,6 +10,7 @@ import NannyItem from "../NannyItem/NannyItem";
 import Appointment from "../Appointment/Appointment";
 
 const NannyList = () => {
+  const [perPage, setPerPage] = useState(4);
   const [selectedNanny, setSelectedNanny] = useState(null);
   const { items, isLoading } = useSelector((state) => state.nannies);
 
@@ -21,7 +22,7 @@ const NannyList = () => {
   };
   const renderNannies = () => {
     return items.length > 0 ? (
-      items.map((nanny, index) => {
+      items.slice(0, perPage).map((nanny, index) => {
         return (
           <NannyItem
             key={nanny.itemId}
@@ -41,6 +42,21 @@ const NannyList = () => {
       <ul className={Css.List}>
         {isLoading ? <div>Loading...</div> : renderNannies()}
       </ul>
+      {perPage >= items.length ? null : (
+        <button
+          style={{
+            width: "max-content",
+            margin: "auto",
+            color: "var(--primary-color)",
+            background: "white",
+            border: "1px solid var(--secondary-color)",
+          }}
+          onClick={() => setPerPage(perPage + 3)}
+        >
+          Load More
+        </button>
+      )}
+
       {selectedNanny && (
         <Modal closeModal={handleCloseModal}>
           <Appointment data={selectedNanny} />

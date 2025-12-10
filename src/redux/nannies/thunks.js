@@ -5,7 +5,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { firebaseConfig } from "../config.js";
 import { initializeApp } from "firebase/app";
 // Firebase Modules
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getDatabase, ref, set, onValue, get, update } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
 // Redux slice action
@@ -64,36 +64,59 @@ export const sendAnAppointment = createAsyncThunk(
 
 export const toggleFavoriteNanny = createAsyncThunk(
   "nannies/toggleFavoriteNanny",
-  async ({ data, nannyIndex, isFavorite }, thunkAPI) => {
+  async ({ data, nannyIndex }, thunkAPI) => {
     try {
       const database = getDatabase(firebaseApp);
       const favoriteRef = ref(database, `nannies/${nannyIndex}`);
 
-      const auth = getAuth();
-      const user = auth.currentUser;
+      const user = thunkAPI.getState().auth.user;
+      const snapshot = await get(favoriteRef);
+      if (snapshot.exists()) {
+        const nannyData = snapshot.val();
 
-      console.log("Reference to update:", favoriteRef, "Ref User:", user);
-      console.log("nannyIndex:", nannyIndex);
-      console.log("Nanny Data:", data);
-      console.log("isFavorite:", isFavorite);
+        Object.keys(nannyData).forEach(async (key) => {
+          if (key === "users") {
+            // console.log("Key 'users' found with value:", nannyData[key]);
 
-      set(favoriteRef, {
-        ...data,
-        favoritedUsers: isFavorite
-          ? data.favoritedUsers.includes(user.uid)
-            ? data.favoritedUsers
-            : [...(data.favoritedUsers || []), user.uid]
-          : data.favoritedUsers.filter((uid) => uid !== user.uid),
-      })
-        .then(() => {
-          console.log(data);
-          toast.success("Nanny favorite status updated successfully");
-        })
-        .catch((error) => {
-          toast.error("Error updating favorite status: " + error.message);
-          return thunkAPI.rejectWithValue(error.message);
+            const nannyFavoritedUsers = nannyData.users;
+            // console.log(
+            //   nannyIndex,
+            //   ": Current favoritedUsers:",
+            //   nannyFavoritedUsers
+            // );
+            const checkedFavoritedUser = nannyFavoritedUsers.includes(user.uid);
+            const resultUsers = checkedFavoritedUser
+              ? nannyFavoritedUsers.filter((uid) => uid !== user.uid)
+              : [...nannyFavoritedUsers, user.uid];
+
+            // console.log(
+            // //   nannyIndex,
+            // //   ": Resulting Users after toggle:",
+            // //   resultUsers
+            // );
+
+            await update(favoriteRef, {
+              users: resultUsers,
+            }).catch((error) => {
+              console.error("Error updating 'users':", error);
+            });
+          } else {
+            set(favoriteRef, { ...nannyData, users: ["0"] }).catch((error) => {
+              console.error("Error initializing 'users':", error);
+            });
+          }
         });
+
+        toast.success("Favorite status updated successfully");
+
+        return true;
+      } else {
+        toast.error("No data available");
+        console.log("No data available at the specified reference.");
+      }
     } catch (error) {
+      console.error("Error toggling favorite status:", error);
+      toast.error("Error updating favorite status: " + error.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
