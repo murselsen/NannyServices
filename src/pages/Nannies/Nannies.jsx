@@ -14,6 +14,7 @@ import NannyList from "../../components/NannyList/NannyList";
 import { useMediaQuery } from "react-responsive";
 import ThemeSelector from "../../components/ThemeSelector/ThemeSelector.jsx";
 import { GiHamburgerMenu } from "react-icons/gi";
+import Filters from "../../components/Filters/Filters.jsx";
 
 const Nannies = () => {
   const isTabletOrMobile = useMediaQuery({
@@ -65,6 +66,7 @@ const Nannies = () => {
         )}
       </div>
       <div className={Css.Content}>
+        <Filters />
         <NannyList data={nannies} />
       </div>
     </div>

@@ -5,6 +5,7 @@ const nanniesSlice = createSlice({
   name: "nannies",
   initialState: {
     items: [],
+    filter: null,
     isLoading: false,
     error: null,
   },
@@ -17,10 +18,14 @@ const nanniesSlice = createSlice({
 
       state.items = data;
     },
+    setFilter: (state, action) => {
+      state.filter = action.payload;
+    },
     resetNannies: (state) => {
       state.items = [];
       state.isLoading = false;
       state.error = null;
+      state.filter = null;
     },
   },
   extraReducers: (builder) => {

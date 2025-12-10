@@ -1,0 +1,94 @@
+.Filters {
+    width: 266px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-left: 20px;
+}
+
+.Filters .Title {
+    font-family: Helvetica Neue;
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0%;
+    color: #8A8A89;
+}
+
+.Filters .Selector {
+    width: 100%;
+    height: auto;
+
+
+    box-sizing: border-box;
+}
+
+.Filters .Selector .OptionList {
+    width: 100%;
+    padding: 14px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 8px;
+    border: 1px solid #11101C1A;
+    border-radius: 14px;
+}
+
+.Filters .Selector .OptionSelected,
+.Filters .Selector .OptionList .OptionInactive,
+.Filters .Selector .OptionList .OptionActive {
+    font-family: Helvetica Neue;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: 0%;
+    padding-inline: 18px;
+    color: #11101c18;
+
+}
+
+.Filters .Selector .OptionList .OptionInactive:hover,
+.Filters .Selector .OptionList .OptionActive:hover {
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+
+.Filters .Selector .OptionList .OptionActive {
+    color: #11101C;
+}
+
+.Filters .Selector .OptionSelected {
+    padding: 14px 18px;
+    color: #11101C;
+    border: 1px solid #11101C1A;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.Filters .Selector .OptionSelected:hover {
+    background-color: var(--primary-color);
+}
+
+.Filters .Selector .OptionSelected:hover .Title,
+.Filters .Selector .OptionSelected:hover .Icon {
+    color: white;
+}
+
+
+
+
+/* 
+width: 226;
+height: 48;
+angle: 0 deg;
+opacity: 1;
+padding-top: 16px;
+padding-right: 157px;
+padding-bottom: 16px;
+padding-left: 18px;
+gap: 133px; */
