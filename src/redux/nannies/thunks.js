@@ -47,7 +47,7 @@ export const sendAnAppointment = createAsyncThunk(
     try {
       const database = getDatabase(firebaseApp);
 
-      const appointmentsRef = ref(database, "appo2intments/" + nanoid());
+      const appointmentsRef = ref(database, "appointments/" + nanoid());
       set(appointmentsRef, appointmentData)
         .then(() => {
           toast.success("Appointment sent successfully");

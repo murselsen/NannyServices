@@ -15,7 +15,7 @@ import { useMediaQuery } from "react-responsive";
 
 // Redux Modules
 import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "../../redux/auth/slice.js";
+import { resetUser } from "../../redux/auth/slice.js";
 // Redux - Auth Slice
 
 const NavAuth = ({ flex }) => {
@@ -27,7 +27,7 @@ const NavAuth = ({ flex }) => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(setUser(null));
+    dispatch(resetUser());
   };
 
   const handleOpenModal = (type) => {
@@ -43,7 +43,10 @@ const NavAuth = ({ flex }) => {
               <FaUser />
             </div>
             <span className={Css.Name}>
-              {user.providerData[0].email.split("@")[0]}
+              {/* {user &&
+                user.providerData.length > 0 &&
+                user.providerData[0].email.split("@")[0]} */}
+              {user && user.email ? user.email.split("@")[0] : "User"}
             </span>
           </div>
           <button className={Css.SignUpButton} onClick={() => handleLogout()}>

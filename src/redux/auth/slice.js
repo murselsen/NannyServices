@@ -3,7 +3,7 @@ import { loginUser, registerUser } from "./thunks.js";
 const initialState = {
   isLoggedIn: false,
   user: {},
-  token: null,
+
   isLoading: false,
   error: null,
 };
@@ -15,6 +15,12 @@ const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload ? action.payload : {};
       state.isLoggedIn = action.payload ? true : false;
+    },
+    resetUser: (state) => {
+      state.user = {};
+      state.isLoggedIn = false;
+      state.isLoading = false;
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -49,4 +55,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-export const { setUser } = authSlice.actions;
+export const { setUser, resetUser } = authSlice.actions;

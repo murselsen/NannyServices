@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 
 // Redux action to set user
 import { setUser } from "./slice.js";
+import { getDatabase, ref, set } from "firebase/database";
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
@@ -32,7 +33,12 @@ export const loginUser = createAsyncThunk(
           return thunkAPI.dispatch(setUser(user));
         })
         .catch((error) => {
-          console.error("Error logging in:", error);
+          if (error.code === "auth/wrong-password") {
+            toast.error("Incorrect password. Please try again.");
+          }
+          if (error.code === "auth/invalid-credential ") {
+            toast.error("Invalid credentials. Please check and try again.");
+          }
           return thunkAPI.rejectWithValue(error.message);
         })
         .finally(() => {
@@ -64,7 +70,6 @@ export const registerUser = createAsyncThunk(
               toast.success("Verification email sent successfully");
             })
             .catch((error) => {
-              toast.error("Error sending verification email: " + error.message);
               return thunkAPI.rejectWithValue(error.message);
             })
             .finally(() => {
@@ -76,9 +81,25 @@ export const registerUser = createAsyncThunk(
               );
               return thunkAPI.dispatch(setUser(user));
             });
-          return userCredential;
+
+          thunkAPI.dispatch(loginUser(credentials));
         })
         .catch((error) => {
+          if (error.code === "auth/too-many-requests") {
+            toast.error("Too many requests. Please try again later.");
+          }
+          if (error.code === "auth/email-already-exists") {
+            toast.error("Email already exists. Please use a different email.");
+          }
+
+          if (error.code === "auth/email-already-in-use") {
+            toast.error("Email already in use. Please use a different email.");
+          }
+
+          if (error.code === "auth/invalid-email") {
+            toast.error("Invalid email address. Please check and try again.");
+          }
+
           console.error("Error registering user:", error);
           return thunkAPI.rejectWithValue(error.message);
         });
@@ -98,7 +119,8 @@ export const currentUser = createAsyncThunk(
         toast.success("User is logged in");
         return thunkAPI.dispatch(setUser(user));
       } else {
-        return thunkAPI.dispatch(setUser(null));
+        toast.error("No user is logged in");
+        return thunkAPI.dispatch(setUser({}));
       }
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

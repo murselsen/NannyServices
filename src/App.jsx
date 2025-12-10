@@ -8,6 +8,7 @@ import "./App.css";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
+import { currentUser } from "./redux/auth/thunks.js";
 
 // Pages
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -16,10 +17,10 @@ const Nannies = lazy(() => import("./pages/Nannies/Nannies"));
 const App = () => {
   const dispatch = useDispatch();
   const themeMode = useSelector((state) => state.theme.mode);
-
+  const auth = useSelector((state) => state.auth);
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", themeMode);
-  }, [themeMode, dispatch]);
+  }, [themeMode, dispatch, auth]);
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
