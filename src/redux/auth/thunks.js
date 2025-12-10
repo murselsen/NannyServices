@@ -113,7 +113,6 @@ export const currentUser = createAsyncThunk(
     try {
       const user = thunkAPI.getState().auth.user;
       if (user !== null) {
-        toast.success("User is logged in");
         return thunkAPI.dispatch(setUser(user));
       } else {
         return thunkAPI.dispatch(resetUser());
