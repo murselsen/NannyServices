@@ -25,11 +25,18 @@ const themePersistReducer = persistReducer(
   },
   themeReducer
 );
-
+const nanniesPersistReducer = persistReducer(
+  {
+    key: "nannies",
+    storage: storage,
+    whitelist: ["items"],
+  },
+  nanniesReducer
+);
 const store = configureStore({
   reducer: {
     auth: authPersistReducer,
-    nannies: nanniesReducer,
+    nannies: nanniesPersistReducer,
     theme: themePersistReducer,
   },
   middleware: (getDefaultMiddleware) =>

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { loginUser, registerUser } from "./thunks.js";
 const initialState = {
   isLoggedIn: false,
-  user: {},
+  user: null,
 
   isLoading: false,
   error: null,
@@ -13,11 +13,11 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload ? action.payload : {};
-      state.isLoggedIn = action.payload ? true : false;
+      state.user = action.payload ? action.payload : initialState.user;
+      state.isLoggedIn = true;
     },
     resetUser: (state) => {
-      state.user = {};
+      state.user = null;
       state.isLoggedIn = false;
       state.isLoading = false;
       state.error = null;

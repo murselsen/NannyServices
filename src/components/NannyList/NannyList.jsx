@@ -9,10 +9,10 @@ import Modal from "../Modal/Modal";
 import NannyItem from "../NannyItem/NannyItem";
 import Appointment from "../Appointment/Appointment";
 
-const NannyList = () => {
+const NannyList = ({ data }) => {
   const [perPage, setPerPage] = useState(4);
   const [selectedNanny, setSelectedNanny] = useState(null);
-  const { items, isLoading } = useSelector((state) => state.nannies);
+  const { isLoading } = useSelector((state) => state.nannies);
 
   const handleOpenModal = (nanny) => {
     setSelectedNanny(nanny);
@@ -21,11 +21,11 @@ const NannyList = () => {
     setSelectedNanny(null);
   };
   const renderNannies = () => {
-    return items.length > 0 ? (
-      items.slice(0, perPage).map((nanny, index) => {
+    return data.length > 0 ? (
+      data.slice(0, perPage).map((nanny, index) => {
         return (
           <NannyItem
-            key={nanny.itemId}
+            key={index}
             index={index}
             data={nanny}
             onOpenAppointment={() => handleOpenModal(nanny)}
@@ -42,7 +42,7 @@ const NannyList = () => {
       <ul className={Css.List}>
         {isLoading ? <div>Loading...</div> : renderNannies()}
       </ul>
-      {perPage >= items.length ? null : (
+      {perPage >= data.length ? null : (
         <button
           style={{
             width: "max-content",

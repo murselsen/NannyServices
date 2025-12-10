@@ -13,12 +13,14 @@ import { currentUser } from "./redux/auth/thunks.js";
 // Pages
 const Home = lazy(() => import("./pages/Home/Home"));
 const Nannies = lazy(() => import("./pages/Nannies/Nannies"));
+const Favorites = lazy(() => import("./pages/Favorites/Favorites"));
 
 const App = () => {
   const dispatch = useDispatch();
   const themeMode = useSelector((state) => state.theme.mode);
   const auth = useSelector((state) => state.auth);
   useEffect(() => {
+    dispatch(currentUser());
     document.documentElement.setAttribute("data-theme", themeMode);
   }, [themeMode, dispatch, auth]);
   return (
@@ -26,6 +28,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/nannies" element={<Nannies />} />
+        <Route path="/nannies/favorites" element={<Favorites />} />
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
       <Toaster position="top-right" reverseOrder={true} />

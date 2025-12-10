@@ -11,7 +11,7 @@ import { firebaseConfig } from "../config.js";
 import toast from "react-hot-toast";
 
 // Redux action to set user
-import { setUser } from "./slice.js";
+import { resetUser, setUser } from "./slice.js";
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
@@ -21,15 +21,12 @@ export const loginUser = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const auth = getAuth(firebaseApp);
-      return signInWithEmailAndPassword(
-        auth,
-        credentials.email,
-        credentials.password
-      )
+      signInWithEmailAndPassword(auth, credentials.email, credentials.password)
         .then((userCredential) => {
           const user = userCredential.user;
           toast.success("Login successful");
-          return thunkAPI.dispatch(setUser(user));
+          thunkAPI.dispatch(setUser(user));
+          window.location.reload(1);
         })
         .catch((error) => {
           if (error.code === "auth/wrong-password") {
@@ -82,6 +79,7 @@ export const registerUser = createAsyncThunk(
             });
 
           thunkAPI.dispatch(loginUser(credentials));
+          return true;
         })
         .catch((error) => {
           if (error.code === "auth/too-many-requests") {
@@ -112,14 +110,12 @@ export const currentUser = createAsyncThunk(
   "auth/currentuser",
   async (_, thunkAPI) => {
     try {
-      const auth = getAuth(firebaseApp);
-      const user = auth.currentUser;
-      if (user) {
+      const user = thunkAPI.getState().auth.user;
+      if (user !== null) {
         toast.success("User is logged in");
         return thunkAPI.dispatch(setUser(user));
       } else {
-        toast.error("No user is logged in");
-        return thunkAPI.dispatch(setUser({}));
+        return thunkAPI.dispatch(resetUser());
       }
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

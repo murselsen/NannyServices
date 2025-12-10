@@ -36,7 +36,7 @@ const NavAuth = ({ flex }) => {
 
   return (
     <div className={Css.AuthButtons} style={{ flex: flex }}>
-      {isLoggedIn && user ? (
+      {isLoggedIn === true ? (
         <>
           <div className={Css.Profile}>
             <div className={Css.Avatar}>
@@ -46,7 +46,7 @@ const NavAuth = ({ flex }) => {
               {/* {user &&
                 user.providerData.length > 0 &&
                 user.providerData[0].email.split("@")[0]} */}
-              {user && user.email ? user.email.split("@")[0] : "User"}
+              {user && user.email ? user.email.split("@")[0] : "Annonymous"}
             </span>
           </div>
           <button className={Css.SignUpButton} onClick={() => handleLogout()}>

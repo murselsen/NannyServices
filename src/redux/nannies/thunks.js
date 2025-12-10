@@ -6,7 +6,6 @@ import { firebaseConfig } from "../config.js";
 import { initializeApp } from "firebase/app";
 // Firebase Modules
 import { getDatabase, ref, set, onValue, get, update } from "firebase/database";
-import { getAuth } from "firebase/auth";
 
 // Redux slice action
 import { setItems } from "./slice.js";
@@ -64,7 +63,7 @@ export const sendAnAppointment = createAsyncThunk(
 
 export const toggleFavoriteNanny = createAsyncThunk(
   "nannies/toggleFavoriteNanny",
-  async ({ data, nannyIndex }, thunkAPI) => {
+  async ({ nannyIndex }, thunkAPI) => {
     try {
       const database = getDatabase(firebaseApp);
       const favoriteRef = ref(database, `nannies/${nannyIndex}`);

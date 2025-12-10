@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 // Css
-import Css from "./Nannies.module.css";
+import Css from "../Nannies/Nannies.module.css";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNannies } from "../../redux/nannies/thunks.js";
-
+import { resetNannies } from "../../redux/nannies/slice.js";
 // Components
 import NavList from "../../components/NavList/NavList";
 import NavAuth from "../../components/NavAuth/NavAuth";
@@ -15,23 +15,28 @@ import { useMediaQuery } from "react-responsive";
 import ThemeSelector from "../../components/ThemeSelector/ThemeSelector.jsx";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-const Nannies = () => {
+const Favorites = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchNannies());
+  }, [dispatch]);
   const isTabletOrMobile = useMediaQuery({
     maxWidth: 1024,
   });
   const [isTabletOrMobileMenuShow, setIsTabletOrMobileMenuShow] =
     useState(false);
   const nanniesData = useSelector((state) => state.nannies.items);
+  const userData = useSelector((state) => state.auth.user);
   const [nannies, setNannies] = useState([]);
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchNannies());
-  }, [dispatch]);
-
-  useEffect(() => {
-    setNannies(nanniesData);
-  }, [nanniesData]);
+    nanniesData &&
+      nanniesData.forEach((nanny) => {
+        Object.keys(nanny).includes("users") &&
+          setNannies(nanniesData.filter((n) => n.users.includes(userData.uid)));
+      });
+  }, [nanniesData, userData]);
 
   return (
     <div className={Css.NanniesPage}>
@@ -71,4 +76,4 @@ const Nannies = () => {
   );
 };
 
-export default Nannies;
+export default Favorites;

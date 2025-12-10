@@ -17,14 +17,7 @@ const NannyItem = ({ onOpenAppointment, data, index }) => {
   const authUserUid = useSelector((state) => state.auth.user?.uid);
   const { users } = data;
   const userFavorited = users && users.includes(authUserUid);
-  console.log(
-    "User favorited status:",
-    userFavorited,
-    "for nanny index:",
-    index,
-    "with user uid:",
-    authUserUid
-  );
+
   const [isMoreView, setIsMoreView] = useState(false);
   const [isFavorite, setIsFavorite] = useState(userFavorited);
 

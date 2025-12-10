@@ -4,8 +4,6 @@ import { nanoid } from "nanoid";
 const nanniesSlice = createSlice({
   name: "nannies",
   initialState: {
-    cursor: null,
-    pageSize: 4,
     items: [],
     isLoading: false,
     error: null,
@@ -18,6 +16,11 @@ const nanniesSlice = createSlice({
       });
 
       state.items = data;
+    },
+    resetNannies: (state) => {
+      state.items = [];
+      state.isLoading = false;
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -36,4 +39,4 @@ const nanniesSlice = createSlice({
   },
 });
 export default nanniesSlice.reducer;
-export const { setItems } = nanniesSlice.actions;
+export const { setItems, resetNannies } = nanniesSlice.actions;
