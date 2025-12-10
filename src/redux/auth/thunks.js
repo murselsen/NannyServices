@@ -29,10 +29,11 @@ export const loginUser = createAsyncThunk(
           window.location.reload(1);
         })
         .catch((error) => {
+          console.error("Error logging in user:", error);
           if (error.code === "auth/wrong-password") {
             toast.error("Incorrect password. Please try again.");
           }
-          if (error.code === "auth/invalid-credential ") {
+          if (error.code === "auth/invalid-credential") {
             toast.error("Invalid credentials. Please check and try again.");
           }
           return thunkAPI.rejectWithValue(error.message);
