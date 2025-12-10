@@ -31,7 +31,7 @@ const App = () => {
         <Route path="/nannies/favorites" element={<Favorites />} />
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
-      <Toaster position="top-right" reverseOrder={true} />
+      <Toaster position="bottom-right" reverseOrder={true} />
     </Suspense>
   );
 };
