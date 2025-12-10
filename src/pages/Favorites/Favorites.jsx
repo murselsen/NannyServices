@@ -5,7 +5,6 @@ import Css from "../Nannies/Nannies.module.css";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNannies } from "../../redux/nannies/thunks.js";
-import { resetNannies } from "../../redux/nannies/slice.js";
 // Components
 import NavList from "../../components/NavList/NavList";
 import NavAuth from "../../components/NavAuth/NavAuth";
