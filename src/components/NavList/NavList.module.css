@@ -16,7 +16,9 @@
 }
 
 .NavItem:hover {
-    color: var(--primary-color);
+    color: white;
+    padding: 5px;
+    background-color: var(--secondary-color);
 }
 
 .NavLink {
