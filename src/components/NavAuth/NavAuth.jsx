@@ -52,6 +52,7 @@ const NavAuth = ({ flex }) => {
           <button className={Css.SignUpButton} onClick={() => handleLogout()}>
             Log out
           </button>
+          {!isTabletOrMobile && <ThemeSelector />}
         </>
       ) : (
         <>
