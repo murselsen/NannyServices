@@ -153,6 +153,51 @@ Katkılarınızı bekliyoruz! Lütfen şu adımları izleyin:
 4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
 5. Pull Request açın
 
+### 📝 Commit Mesajı Kuralları
+
+Anlamlı ve tutarlı commit mesajları kullanın. Conventional Commits standardını takip edin:
+
+```
+feat: Yeni özellik ekleme
+fix: Bug düzeltme
+docs: Dokümantasyon değişikliği
+style: Kod formatı değişikliği (whitespace, formatting, missing semi colons, etc)
+refactor: Kod yeniden yapılandırma
+test: Test ekleme veya düzeltme
+chore: Build araçları veya yardımcı araç değişiklikleri
+```
+
+**Örnekler:**
+
+```bash
+git commit -m "feat: Add user authentication"
+git commit -m "fix: Resolve theme switching bug"
+git commit -m "docs: Update README with installation steps"
+```
+
+### ⚡ Kod Standartları
+
+- **Loading Indicators**: Tüm asenkron isteklerde kullanıcıya geri bildirim vermek için loading göstergeleri kullanılmalıdır
+
+  ```jsx
+  // Örnek kullanım
+  const [loading, setLoading] = useState(false);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await api.getData();
+      // ...
+    } finally {
+      setLoading(false);
+    }
+  };
+  ```
+
+- **Error Handling**: Tüm asenkron işlemlerde hata yönetimi yapılmalıdır
+- **Code Splitting**: Performans için lazy loading kullanılmalıdır
+- **Accessibility**: WCAG standartlarına uygun erişilebilir kod yazılmalıdır
+
 ## 📝 Lisans
 
 Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
