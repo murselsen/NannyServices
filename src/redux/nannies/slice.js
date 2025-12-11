@@ -5,7 +5,11 @@ const nanniesSlice = createSlice({
   name: "nannies",
   initialState: {
     items: [],
-    filter: null,
+    filter: {
+      key: "all",
+      value: null,
+      title: "Show All",
+    },
     isLoading: false,
     error: null,
   },
@@ -20,7 +24,11 @@ const nanniesSlice = createSlice({
       state.items = [];
       state.isLoading = false;
       state.error = null;
-      state.filter = null;
+      state.filter = {
+        key: "all",
+        value: null,
+        title: "Show All",
+      };
     },
   },
   extraReducers: (builder) => {
