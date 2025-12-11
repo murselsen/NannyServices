@@ -11,8 +11,13 @@
 }
 
 .Content {
+    max-width: 1200px;
     margin-top: 80px;
-    padding: 24px 96px;
+    padding: 54px 96px;
+    display: flex;
+    flex-direction: column;
+    margin-inline: auto;
+    align-content: center;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {

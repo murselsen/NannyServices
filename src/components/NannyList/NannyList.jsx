@@ -42,7 +42,7 @@ const NannyList = ({ data }) => {
       <ul className={Css.List}>
         {isLoading ? <div>Loading...</div> : renderNannies()}
       </ul>
-      {perPage >= data.length ? null : (
+      {perPage >= data ? null : (
         <button
           style={{
             width: "max-content",

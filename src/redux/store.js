@@ -29,7 +29,7 @@ const nanniesPersistReducer = persistReducer(
   {
     key: "nannies",
     storage: storage,
-    whitelist: ["items"],
+    whitelist: ["items", "filter"],
   },
   nanniesReducer
 );

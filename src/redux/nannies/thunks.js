@@ -5,7 +5,18 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { firebaseConfig } from "../config.js";
 import { initializeApp } from "firebase/app";
 // Firebase Modules
-import { getDatabase, ref, set, onValue, get, update } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  set,
+  onValue,
+  get,
+  update,
+  query,
+  orderByChild,
+  startAt,
+  endAt,
+} from "firebase/database";
 
 // Redux slice action
 import { setItems } from "./slice.js";
@@ -20,12 +31,44 @@ export const fetchNannies = createAsyncThunk(
     try {
       const database = getDatabase(firebaseApp);
 
-      const nanniesRef = await ref(database, "/nannies");
+      console.log("Filter state in thunk:", thunkAPI.getState().nannies.filter);
+      let nanniesRef = ref(database, "nannies");
+      let nanniesQuery = null;
+      const filter = thunkAPI.getState().nannies.filter;
+      switch (filter.key) {
+        case "name":
+          nanniesQuery = query(nanniesRef, orderByChild(filter.key));
+          break;
+        case "price_per_hour":
+          if (filter.value === "lt10") {
+            nanniesQuery = query(
+              nanniesRef,
+              orderByChild(filter.key),
+              endAt(10)
+            );
+          } else if (filter.value === "gt10") {
+            nanniesQuery = query(
+              nanniesRef,
+              orderByChild(filter.key),
+              startAt(10)
+            );
+          }
 
+          break;
+
+        default:
+          nanniesQuery = nanniesRef;
+          break;
+      }
+      console.log("Constructed nanniesQuery:", nanniesQuery);
       onValue(
-        nanniesRef,
+        nanniesQuery,
         (snapshot) => {
-          toast.success("Nannies data fetched successfully");
+          const nanniesFilter = thunkAPI.getState().nannies.filter;
+          if (nanniesFilter.key === "name" && nanniesFilter.value === "desc") {
+            return thunkAPI.dispatch(setItems(snapshot.val().reverse()));
+          }
+
           return thunkAPI.dispatch(setItems(snapshot.val()));
         },
         (error) => {

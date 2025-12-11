@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // Css
 import Css from "./Filters.module.css";
 // Icons
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
-import { useDispatch } from "react-redux";
-import { setFilter } from "../../redux/nannies/slice";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilter } from "../../redux/nannies/slice.js";
+import { fetchNannies } from "../../redux/nannies/thunks.js";
 
 const Filters = () => {
   const filterList = [
@@ -19,22 +20,22 @@ const Filters = () => {
       title: "Z to A",
     },
     {
-      key: "price",
+      key: "price_per_hour",
       value: "lt10",
       title: "Less than 10$",
     },
     {
-      key: "price",
+      key: "price_per_hour",
       value: "gt10",
       title: "Greater than 10$",
     },
     {
-      key: "popularity",
+      key: "rating",
       value: "popular",
       title: "Popular",
     },
     {
-      key: "popularity",
+      key: "rating",
       value: "notpopular",
       title: "Not Popular",
     },
@@ -54,8 +55,16 @@ const Filters = () => {
 
   const handleFilterChange = (filter) => {
     setSelectedFilter(filter);
+    setIsSelectorOpen(false);
     dispatch(setFilter(filter));
+    dispatch(fetchNannies());
   };
+
+  const storedFilter = useSelector((state) => state.nannies.filter);
+  useEffect(() => {
+    const defaultFilter = storedFilter;
+    setSelectedFilter(defaultFilter);
+  }, [storedFilter]);
 
   return (
     <div className={Css.Filters}>

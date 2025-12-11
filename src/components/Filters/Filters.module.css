@@ -1,9 +1,10 @@
 .Filters {
-    width: 266px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-left: 20px;
+    /* margin-left: 96px; */
+    position: relative;
 }
 
 .Filters .Title {
@@ -17,7 +18,7 @@
 }
 
 .Filters .Selector {
-    width: 100%;
+    width: 266px;
     height: auto;
 
 
@@ -25,7 +26,7 @@
 }
 
 .Filters .Selector .OptionList {
-    width: 100%;
+    width: 266px;
     padding: 14px 0px;
     display: flex;
     flex-direction: column;
@@ -33,6 +34,9 @@
     margin-top: 8px;
     border: 1px solid #11101C1A;
     border-radius: 14px;
+    position: absolute;
+    top: 90px;
+    background-color: #fff;
 }
 
 .Filters .Selector .OptionSelected,
