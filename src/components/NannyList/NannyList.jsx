@@ -21,7 +21,7 @@ const NannyList = ({ data }) => {
     setSelectedNanny(null);
   };
   const renderNannies = () => {
-    return data.length > 0 ? (
+    return data && data.length > 0 ? (
       data.slice(0, perPage).map((nanny, index) => {
         return (
           <NannyItem
@@ -42,20 +42,22 @@ const NannyList = ({ data }) => {
       <ul className={Css.List}>
         {isLoading ? <div>Loading...</div> : renderNannies()}
       </ul>
-      {perPage >= data ? null : (
-        <button
-          style={{
-            width: "max-content",
-            margin: "auto",
-            color: "var(--primary-color)",
-            background: "white",
-            border: "1px solid var(--secondary-color)",
-          }}
-          onClick={() => setPerPage(perPage + 3)}
-        >
-          Load More
-        </button>
-      )}
+      {data && data.length > 0 ? (
+        perPage >= data.length ? null : (
+          <button
+            style={{
+              width: "max-content",
+              margin: "auto",
+              color: "var(--primary-color)",
+              background: "white",
+              border: "1px solid var(--secondary-color)",
+            }}
+            onClick={() => setPerPage(perPage + 3)}
+          >
+            Load More
+          </button>
+        )
+      ) : null}
 
       {selectedNanny && (
         <Modal closeModal={handleCloseModal}>

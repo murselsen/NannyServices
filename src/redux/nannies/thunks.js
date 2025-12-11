@@ -55,6 +55,21 @@ export const fetchNannies = createAsyncThunk(
           }
 
           break;
+        case "rating":
+          if (filter.value === "popular") {
+            nanniesQuery = query(
+              nanniesRef,
+              orderByChild(filter.key),
+              startAt(4)
+            );
+          } else if (filter.value === "notpopular") {
+            nanniesQuery = query(
+              nanniesRef,
+              orderByChild(filter.key),
+              endAt(4)
+            );
+          }
+          break;
 
         default:
           nanniesQuery = nanniesRef;
@@ -67,9 +82,9 @@ export const fetchNannies = createAsyncThunk(
           const nanniesFilter = thunkAPI.getState().nannies.filter;
           if (nanniesFilter.key === "name" && nanniesFilter.value === "desc") {
             return thunkAPI.dispatch(setItems(snapshot.val().reverse()));
+          } else {
+            return thunkAPI.dispatch(setItems(snapshot.val()));
           }
-
-          return thunkAPI.dispatch(setItems(snapshot.val()));
         },
         (error) => {
           toast.error("Error fetching nannies data: " + error.message);

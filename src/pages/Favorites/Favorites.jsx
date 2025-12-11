@@ -13,6 +13,7 @@ import NannyList from "../../components/NannyList/NannyList";
 import { useMediaQuery } from "react-responsive";
 import ThemeSelector from "../../components/ThemeSelector/ThemeSelector.jsx";
 import { GiHamburgerMenu } from "react-icons/gi";
+import Filters from "../../components/Filters/Filters.jsx";
 
 const Favorites = () => {
   const dispatch = useDispatch();
@@ -69,6 +70,7 @@ const Favorites = () => {
         )}
       </div>
       <div className={Css.Content}>
+        <Filters />
         <NannyList data={nannies} />
       </div>
     </div>
